@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎮 SHOW DA FAMÍLIA - Edição Definitiva 🏆</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --secondary: #f59e0b;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --info: #3b82f6;
+      --dark: #0f172a;
+      --light: #f8fafc;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --family-red: #ef4444;
+      --family-blue: #3b82f6;
+      --family-yellow: #f59e0b;
+      --family-green: #10b981;
+      --family-purple: #8b5cf6;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%);
+      color: var(--light);
+      font-family: 'Nunito', system-ui, sans-serif;
+      min-height: 100vh;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    #app { max-width: 1400px; margin: 0 auto; padding: 20px; }
+
+    .main-card {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 10px 40px rgba(79, 70, 229, 0.3), 0 0 60px rgba(245, 158, 11, 0.1);
+      border: 3px solid rgba(79, 70, 229, 0.3);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 25px;
+      background: linear-gradient(90deg,
+        var(--family-red),
+        var(--family-yellow),
+        var(--family-green),
+        var(--family-blue),
+        var(--family-purple));
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+      animation: headerGlow 3s infinite alternate;
+    }
+
+    .game-header h1 {
+      font-family: 'Comic Neue', cursive;
+      font-size: 4rem;
+      color: white;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3), 0 0 30px rgba(255, 255, 255, 0.5);
+      margin-bottom: 10px;
+      animation: textGlow 2s ease-in-out infinite alternate;
+    }
+
+    .game-subtitle {
+      font-size: 1.3rem;
+      opacity: 0.95;
+      color: white;
+      font-weight: 600;
+    }
+
+    @keyframes headerGlow {
+      0% { box-shadow: 0 0 20px var(--family-red); }
+      25% { box-shadow: 0 0 20px var(--family-yellow); }
+      50% { box-shadow: 0 0 20px var(--family-green); }
+      75% { box-shadow: 0 0 20px var(--family-blue); }
+      100% { box-shadow: 0 0 20px var(--family-purple); }
+    }
+
+    @keyframes textGlow {
+      from { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+      to { text-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(245, 158, 11, 0.6); }
+    }
+
+    @keyframes pulse { 0%{transform:scale(1)} 50%{transform:scale(1.05)} 100%{transform:scale(1)} }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    @keyframes confettiRain { 0%{transform:translateY(-100vh) rotate(0deg)} 100%{transform:translateY(100vh) rotate(360deg)} }
+
+    .btn {
+      padding: 18px 28px;
+      border: none;
+      border-radius: 16px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 12px 0;
+      width: 100%;
+      font-family: 'Comic Neue', cursive;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-primary { background: linear-gradient(135deg, var(--primary), #6366f1); color: white; }
+    .btn-secondary { background: linear-gradient(135deg, var(--secondary), #fbbf24); color: white; }
+    .btn-success { background: linear-gradient(135deg, var(--success), #34d399); color: white; }
+    .btn-danger { background: linear-gradient(135deg, var(--danger), #f87171); color: white; }
+    .btn-warning { background: linear-gradient(135deg, var(--warning), #fbbf24); color: white; }
+    .btn-family { background: linear-gradient(135deg, var(--family-red), var(--family-yellow)); color: white; animation: pulse 2s infinite; }
+
+    .top-controls {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .control-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(15, 23, 42, 0.9);
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .control-btn:hover { transform: scale(1.1); background: rgba(79, 70, 229, 0.9); }
+
+    .mode-selection {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin: 30px 0;
+    }
+
+    .mode-card {
+      background: rgba(30, 41, 59, 0.8);
+      border-radius: 20px;
+      padding: 25px;
+      border: 2px solid transparent;
+      transition: all 0.3s;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .mode-card:hover {
+      border-color: var(--secondary);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.2);
+    }
+
+    .mode-card.selected { border-color: var(--success); background: rgba(16, 185, 129, 0.1); }
+
+    .mode-icon { font-size: 3rem; margin-bottom: 15px; }
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin: 30px 0;
+    }
+
+    .setting-group { margin-bottom: 25px; }
+    .setting-label { display: block; margin-bottom: 10px; font-size: 1.2rem; color: #cbd5e1; font-weight: 700; }
+
+    .setting-input {
+      width: 100%;
+      padding: 18px 22px;
+      border: 2px solid #334155;
+      border-radius: 14px;
+      font-size: 1.1rem;
+      background: rgba(30, 41, 59, 0.9);
+      color: white;
+      transition: all 0.3s;
+    }
+
+    .setting-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2);
+    }
+
+    .slider-value { text-align: center; font-size: 1.8rem; color: var(--secondary); font-weight: 900; margin-top: 10px; }
+
+    .players-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .player-card {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 18px;
+      padding: 20px;
+      text-align: center;
+      border: 3px solid transparent;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .player-card.current {
+      border-color: var(--secondary);
+      box-shadow: 0 0 30px rgba(245, 158, 11, 0.4);
+      animation: pulse 2s infinite;
+    }
+
+    .player-avatar { font-size: 3.5rem; margin-bottom: 15px; display: block; animation: bounce 2s infinite; }
+
+    .game-area {
+      background: rgba(30, 41, 59, 0.95);
+      border-radius: 24px;
+      padding: 30px;
+      margin: 30px 0;
+      border-left: 8px solid var(--primary);
+    }
+
+    .turn-info { text-align: center; margin-bottom: 25px; padding: 15px; background: rgba(79, 70, 229, 0.2); border-radius: 15px; }
+    .turn-text { font-size: 1.8rem; color: var(--secondary); font-weight: 900; }
+
+    .category-badge {
+      display: inline-block;
+      padding: 10px 20px;
+      background: rgba(79, 70, 229, 0.2);
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 15px 0;
+      color: #818cf8;
+    }
+
+    .question-container {
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      margin: 30px 0;
+      background: rgba(15, 23, 42, 0.7);
+      border-radius: 20px;
+      border: 3px solid var(--primary);
+    }
+
+    .question-text { font-size: 2.2rem; line-height: 1.5; color: white; font-weight: 700; text-align: center; }
+
+    .answers-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .answer-option {
+      padding: 25px;
+      background: rgba(51, 65, 85, 0.9);
+      border: 3px solid transparent;
+      border-radius: 18px;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .answer-option:hover { background: rgba(71, 85, 105, 0.95); transform: translateX(10px); border-color: var(--info); }
+    .answer-option.correct { background: linear-gradient(135deg, var(--success), #34d399); border-color: var(--success); animation: pulse 0.5s; }
+    .answer-option.wrong { background: linear-gradient(135deg, var(--danger), #f87171); border-color: var(--danger); }
+
+    .answer-letter { position: absolute; left: 20px; font-weight: 900; color: rgba(255, 255, 255, 0.3); font-size: 1.5rem; }
+    .answer-content { margin-left: 50px; }
+
+    .timer-container { margin: 25px 0; }
+    .timer-bar { height: 15px; background: rgba(71, 85, 105, 0.5); border-radius: 10px; overflow: hidden; margin-bottom: 10px; }
+    .timer-fill { height: 100%; background: linear-gradient(90deg, var(--success), var(--warning), var(--danger)); width: 100%; transition: width 1s linear; border-radius: 10px; }
+    .timer-text { text-align: center; font-size: 1.3rem; color: var(--warning); font-weight: 700; }
+
+    .powerups-container { display: flex; justify-content: center; gap: 20px; margin: 30px 0; flex-wrap: wrap; }
+
+    .powerup-btn {
+      padding: 15px 25px;
+      background: rgba(139, 92, 246, 0.9);
+      border: none;
+      border-radius: 15px;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .powerup-btn:hover { transform: scale(1.1); background: rgba(139, 92, 246, 1); }
+    .powerup-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .scoreboard {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 20px;
+      padding: 25px;
+      margin: 30px 0;
+      border: 3px solid rgba(79, 70, 229, 0.3);
+    }
+
+    .scoreboard-title { text-align: center; font-size: 2rem; margin-bottom: 25px; color: var(--secondary); font-weight: 900; }
+    .scores-list { display: grid; gap: 15px; }
+
+    .score-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background: rgba(30, 41, 59, 0.7);
+      border-radius: 15px;
+      transition: all 0.3s;
+      border-left: 5px solid transparent;
+      gap: 10px;
+    }
+
+    .score-item.current { background: rgba(79, 70, 229, 0.2); border-left-color: var(--primary); }
+
+    .score-player { font-weight: 800; font-size: 1.3rem; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .score-points { font-weight: 900; font-size: 1.8rem; color: var(--secondary); }
+
+    .results-screen { text-align: center; padding: 40px; }
+    .winner-crown { font-size: 5rem; margin-bottom: 20px; animation: bounce 2s infinite; }
+    .winner-title { font-size: 3rem; color: var(--secondary); margin-bottom: 20px; }
+    .winner-score { font-size: 2.5rem; color: var(--warning); margin-bottom: 30px; }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+      background: var(--dark);
+      border-radius: 30px;
+      padding: 40px;
+      max-width: 800px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      border: 4px solid var(--secondary);
+      animation: modalSlide 0.4s ease-out;
+    }
+
+    @keyframes modalSlide {
+      from { opacity: 0; transform: translateY(-60px) scale(0.9); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .confetti { position: fixed; width: 15px; height: 15px; pointer-events: none; z-index: 10000; animation: confettiRain 5s linear forwards; }
+
+    .hidden { display: none !important; }
+    .text-center { text-align: center; }
+    .mt-20 { margin-top: 20px; }
+    .mt-30 { margin-top: 30px; }
+    .mb-20 { margin-bottom: 20px; }
+    .mb-30 { margin-bottom: 30px; }
+
+    @media (max-width: 1200px) {
+      .game-header h1 { font-size: 3rem; }
+      .answers-container { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .game-header h1 { font-size: 2.5rem; }
+      .answers-container { grid-template-columns: 1fr; }
+      .question-text { font-size: 1.8rem; }
+      .mode-selection { grid-template-columns: 1fr; }
+      .settings-grid { grid-template-columns: 1fr; }
+      .players-grid { grid-template-columns: 1fr; }
+      .powerups-container { flex-direction: column; align-items: center; }
+      .top-controls { top: 10px; right: 10px; }
+      .control-btn { width: 40px; height: 40px; font-size: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      .game-header h1 { font-size: 2rem; }
+      .btn { padding: 15px 20px; font-size: 1rem; }
+      .modal-content { padding: 20px; }
+      .winner-title { font-size: 2rem; }
+    }
+  </style>
+</head>
+
+<body>
+<div id="app">
+  <div class="main-card">
+
+    <div class="top-controls">
+      <button class="control-btn" id="audioToggle" title="Alternar som">
+        <i class="fas fa-volume-up"></i>
+      </button>
+      <button class="control-btn" onclick="showInstructions()" title="Instruções">
+        <i class="fas fa-question"></i>
+      </button>
+      <button class="control-btn" onclick="showRecords()" title="Recordes">
+        <i class="fas fa-trophy"></i>
+      </button>
+    </div>
+
+    <header class="game-header">
+      <h1>🎮 SHOW DA FAMÍLIA 🎮</h1>
+      <p class="game-subtitle">O jogo mais completo para toda a família!</p>
+    </header>
+
+    <div id="welcomeScreen">
+      <div class="text-center mb-30">
+        <h2 style="font-size: 2.5rem; color: var(--secondary); margin-bottom: 20px;">
+          <i class="fas fa-users"></i> BEM-VINDO, FAMÍLIA!
+        </h2>
+        <p style="font-size: 1.3rem; color: #cbd5e1; max-width: 800px; margin: 0 auto 30px;">
+          Escolha o modo de jogo e prepare-se para horas de diversão, aprendizado e muitas risadas!
+        </p>
+      </div>
+
+      <div class="setting-group">
+        <label class="setting-label"><i class="fas fa-gamepad"></i> ESCOLHA O MODO DE JOGO</label>
+        <div class="mode-selection">
+          <div class="mode-card" onclick="selectMode('classic')">
+            <div class="mode-icon">🏆</div>
+            <h3>CLÁSSICO</h3>
+            <p>Todos contra todos, rodadas infinitas</p>
+          </div>
+          <div class="mode-card" onclick="selectMode('quick')">
+            <div class="mode-icon">⚡</div>
+            <h3>RÁPIDO</h3>
+            <p>5, 10 ou 15 rodadas por jogador</p>
+          </div>
+          <div class="mode-card" onclick="selectMode('duel')">
+            <div class="mode-icon">⚔️</div>
+            <h3>DUELO X1</h3>
+            <p>Batalha cara a cara, melhor de 3</p>
+          </div>
+          <div class="mode-card" onclick="selectMode('teams')">
+            <div class="mode-icon">👨‍👩‍👧‍👦</div>
+            <h3>TIMES</h3>
+            <p>Crianças vs Adultos ou times mistos</p>
+          </div>
+          <div class="mode-card" onclick="selectMode('survival')">
+            <div class="mode-icon">🔥</div>
+            <h3>SURVIVAL</h3>
+            <p>Errou, sai! Último sobrevivente ganha</p>
+          </div>
+          <div class="mode-card" onclick="selectMode('coop')">
+            <div class="mode-icon">🤝</div>
+            <h3>COOPERATIVO</h3>
+            <p>Todos juntos contra o tempo</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-grid">
+        <div class="setting-group">
+          <label class="setting-label"><i class="fas fa-user-friends"></i> QUANTOS JOGADORES?</label>
+          <input type="range" id="numPlayers" min="2" max="8" value="4" class="setting-input">
+          <div class="slider-value" id="playerCount">4 JOGADORES</div>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label"><i class="fas fa-brain"></i> NÍVEL DE DIFICULDADE</label>
+          <select id="difficulty" class="setting-input">
+            <option value="easy">🥇 FÁCIL (Para todos)</option>
+            <option value="medium" selected>🥈 MÉDIO (Família)</option>
+            <option value="hard">🥇 DIFÍCIL (Experts)</option>
+            <option value="expert">👑 EXPERT (Desafio Total)</option>
+            <option value="mixed">🎲 MISTURADO (Todos os níveis)</option>
+          </select>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label"><i class="fas fa-flag-checkered"></i> QUANTAS RODADAS?</label>
+          <select id="rounds" class="setting-input">
+            <option value="5">5 Rodadas (Rápido)</option>
+            <option value="10" selected>10 Rodadas (Normal)</option>
+            <option value="15">15 Rodadas (Longo)</option>
+            <option value="20">20 Rodadas (Maratona)</option>
+            <option value="infinite">Infinitas (Até cansar!)</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px;">
+        <button class="btn btn-family" onclick="setupPlayers()">
+          <i class="fas fa-play-circle"></i> COMEÇAR JOGO
+        </button>
+        <button class="btn btn-secondary" onclick="showQuickStats()">
+          <i class="fas fa-chart-line"></i> ESTATÍSTICAS
+        </button>
+      </div>
+
+      <div id="quickStats" class="scoreboard mt-30" style="display: none;">
+        <h3 class="scoreboard-title"><i class="fas fa-chart-pie"></i> ESTATÍSTICAS DA FAMÍLIA</h3>
+        <div id="statsList"></div>
+      </div>
+    </div>
+
+    <div id="playerSetup" class="hidden">
+      <h2 style="color: var(--secondary); margin-bottom: 30px; text-align: center;">
+        <i class="fas fa-user-edit"></i> CONFIGURE OS JOGADORES
+      </h2>
+
+      <div class="players-grid" id="playersGrid"></div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px;">
+        <button class="btn btn-success" onclick="startGame()">
+          <i class="fas fa-rocket"></i> INICIAR PARTIDA!
+        </button>
+        <button class="btn btn-secondary" onclick="backToMenu()">
+          <i class="fas fa-arrow-left"></i> VOLTAR
+        </button>
+      </div>
+    </div>
+
+    <div id="gameScreen" class="hidden">
+      <div class="turn-info">
+        <div id="turnText" class="turn-text"></div>
+        <div id="categoryDisplay" class="category-badge"></div>
+      </div>
+
+      <div class="timer-container">
+        <div class="timer-bar">
+          <div id="timerFill" class="timer-fill"></div>
+        </div>
+        <div id="timerText" class="timer-text">TEMPO: 30s</div>
+      </div>
+
+      <div class="game-area">
+        <div class="question-container">
+          <div id="questionDisplay" class="question-text"></div>
+        </div>
+
+        <div id="answersContainer" class="answers-container"></div>
+
+        <div class="powerups-container">
+          <button class="powerup-btn" onclick="usePowerUp('help')" id="helpBtn">
+            <i class="fas fa-life-ring"></i> AJUDA DA FAMÍLIA (2)
+          </button>
+          <button class="powerup-btn" onclick="usePowerUp('time')" id="timeBtn">
+            <i class="fas fa-clock"></i> TEMPO EXTRA (1)
+          </button>
+          <button class="powerup-btn" onclick="usePowerUp('double')" id="doubleBtn">
+            <i class="fas fa-gem"></i> DUPLA PONTUAÇÃO (1)
+          </button>
+          <button class="powerup-btn" onclick="usePowerUp('skip')" id="skipBtn">
+            <i class="fas fa-forward"></i> PULAR PERGUNTA (1)
+          </button>
+        </div>
+      </div>
+
+      <div class="scoreboard">
+        <h3 class="scoreboard-title">
+          <i class="fas fa-chart-bar"></i> PLACAR - RODADA
+          <span id="currentRound">1</span>/<span id="totalRounds">10</span>
+        </h3>
+        <div id="scoreList" class="scores-list"></div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-top: 30px;">
+        <button class="btn btn-warning" onclick="pauseGame()">
+          <i class="fas fa-pause"></i> PAUSAR
+        </button>
+        <button class="btn btn-info" onclick="showHint()" id="hintBtn">
+          <i class="fas fa-lightbulb"></i> DICA (-3 pts)
+        </button>
+        <button class="btn btn-danger" onclick="confirmQuit()">
+          <i class="fas fa-sign-out-alt"></i> SAIR
+        </button>
+      </div>
+    </div>
+
+    <div id="resultsScreen" class="hidden">
+      <div class="results-screen">
+        <div id="winnerCrown" class="winner-crown"></div>
+        <h2 id="winnerTitle" class="winner-title"></h2>
+        <div id="winnerScore" class="winner-score"></div>
+
+        <div class="scoreboard mt-30">
+          <h3 class="scoreboard-title"><i class="fas fa-chart-pie"></i> ESTATÍSTICAS DA PARTIDA</h3>
+          <div id="gameStats" style="text-align: left; padding: 20px;"></div>
+        </div>
+
+        <div id="achievementsDisplay" class="scoreboard mt-30" style="display: none;">
+          <h3 class="scoreboard-title"><i class="fas fa-medal"></i> CONQUISTAS DESBLOQUEADAS</h3>
+          <div id="achievementsList"></div>
+        </div>
+
+        <div style="display: flex; gap: 15px; justify-content: center; margin-top: 40px; flex-wrap: wrap;">
+          <button class="btn btn-family" onclick="rematch()">
+            <i class="fas fa-redo"></i> REVANCHE
+          </button>
+          <button class="btn btn-success" onclick="newGame()">
+            <i class="fas fa-plus-circle"></i> NOVA PARTIDA
+          </button>
+          <button class="btn btn-secondary" onclick="backToMenu()">
+            <i class="fas fa-home"></i> MENU PRINCIPAL
+          </button>
+          <button class="btn btn-info" onclick="shareResults()">
+            <i class="fas fa-share-alt"></i> COMPARTILHAR
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="instructionsModal" class="modal-overlay">
+  <div class="modal-content">
+    <h2 style="color: var(--secondary); margin-bottom: 25px; text-align: center;">
+      <i class="fas fa-graduation-cap"></i> COMO JOGAR - SHOW DA FAMÍLIA
+    </h2>
+
+    <div style="line-height: 1.8; font-size: 1.1rem;">
+      <p style="color:#cbd5e1; margin-bottom: 15px;">
+        Escolha o modo, configure jogadores e responda perguntas. Use power-ups com estratégia.
+      </p>
+      <ul style="list-style: none; padding-left: 10px;">
+        <li style="margin: 10px 0; border-left: 3px solid var(--info); padding-left: 10px;"><strong>Clássico:</strong> sem limite prático (ou até acabar sua paciência).</li>
+        <li style="margin: 10px 0; border-left: 3px solid var(--success); padding-left: 10px;"><strong>Rápido:</strong> número fixo de rodadas.</li>
+        <li style="margin: 10px 0; border-left: 3px solid var(--warning); padding-left: 10px;"><strong>Duelo:</strong> 1x1 (melhor de 3 você pode adaptar).</li>
+        <li style="margin: 10px 0; border-left: 3px solid var(--family-purple); padding-left: 10px;"><strong>Times:</strong> crianças vs adultos.</li>
+        <li style="margin: 10px 0; border-left: 3px solid var(--danger); padding-left: 10px;"><strong>Survival:</strong> errou/tempo acabou, eliminou.</li>
+        <li style="margin: 10px 0; border-left: 3px solid var(--family-blue); padding-left: 10px;"><strong>Coop:</strong> joguem juntos (regras podem ser ajustadas).</li>
+      </ul>
+    </div>
+
+    <button class="btn btn-primary mt-30" onclick="closeModal('instructionsModal')">
+      <i class="fas fa-thumbs-up"></i> ENTENDI, VAMOS JOGAR!
+    </button>
+  </div>
+</div>
+
+<div id="recordsModal" class="modal-overlay">
+  <div class="modal-content">
+    <h2 style="color: var(--warning); margin-bottom: 25px; text-align: center;">
+      <i class="fas fa-trophy"></i> HALL DA FAMA DA FAMÍLIA
+    </h2>
+    <div id="hallOfFame"></div>
+    <button class="btn btn-secondary mt-30" onclick="closeModal('recordsModal')">
+      <i class="fas fa-times"></i> FECHAR
+    </button>
+  </div>
+</div>
+
+<script>
+
+  (function () {
+  function showFatal(msg) {
+    let box = document.getElementById('fatalErrorBox');
+    if (!box) {
+      box = document.createElement('div');
+      box.id = 'fatalErrorBox';
+      box.style.cssText = `
+        position: fixed;
+        top: 10px; left: 10px; right: 10px;
+        z-index: 999999;
+        background: rgba(239, 68, 68, 0.95);
+        color: #fff;
+        padding: 12px 14px;
+        border-radius: 10px;
+        font-family: system-ui, sans-serif;
+        font-size: 14px;
+        white-space: pre-wrap;
+        box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      `;
+      document.body.appendChild(box);
+    }
+    box.textContent = msg;
+  }
+
+  window.addEventListener('error', (e) => {
+    showFatal(`ERRO JS:\n${e.message}\nArquivo: ${e.filename}\nLinha: ${e.lineno}:${e.colno}`);
+  });
+
+  window.addEventListener('unhandledrejection', (e) => {
+    const reason = (e && e.reason) ? (e.reason.stack || e.reason.message || String(e.reason)) : 'Sem detalhes';
+    showFatal(`PROMISE REJEITADA:\n${reason}`);
+  });
+})();
+// =========================
+// Segurança: localStorage
+// =========================
+function safeGetLocalStorage(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return fallback;
+    return JSON.parse(raw);
+  } catch (e) {
+    console.warn('⚠️ localStorage indisponível/bloqueado. Rodando sem recordes.', e);
+    return fallback;
+  }
+}
+
+function safeSetLocalStorage(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (e) {
+    console.warn('⚠️ Não foi possível salvar no localStorage.', e);
+  }
+}
+
+// ============================================
+// BANCO DE DADOS DO JOGO
+// ============================================
+const GameConfig = {
+  audioEnabled: true,
+  speechRate: 0.9,
+  version: '2.0.0'
+};
+
+const GameState = {
+  mode: 'classic',
+  difficulty: 'medium',
+  players: [],
+  scores: [],
+  streaks: [],
+  powerUps: [],
+
+  currentPlayer: 0,
+  currentRound: 1,
+  totalRounds: 10,
+  questions: [],
+  usedQuestions: new Set(),
+
+  gameActive: false,
+  timer: 30,
+  timerInterval: null,
+  doublePoints: false,
+  gamePaused: false,
+
+  currentQuestionIndex: null,
+  currentCorrectIndex: null,
+  currentCategoryKey: null,
+  currentPoints: null,
+  questionStartAt: null,
+
+  stats: {
+    totalQuestions: 0,
+    correctAnswers: 0,
+    fastestAnswer: 999,
+    categories: {},
+    powerUpsUsed: 0,
+    hintsUsed: 0,
+    startTime: null,
+    achievements: new Set()
+  },
+
+  records: safeGetLocalStorage('familyShowRecords', [])
+};
+
+const Categories = {
+  matematica: { name: '🧮 MATEMÁTICA', color: '#3b82f6', icon: 'fa-calculator', difficulties: ['easy', 'medium', 'hard', 'expert'] },
+  geografia: { name: '🌎 GEOGRAFIA', color: '#10b981', icon: 'fa-globe-americas', difficulties: ['easy', 'medium', 'hard'] },
+  historia: { name: '🏛️ HISTÓRIA', color: '#f59e0b', icon: 'fa-landmark', difficulties: ['easy', 'medium', 'hard'] },
+  ciencia: { name: '🔬 CIÊNCIA', color: '#8b5cf6', icon: 'fa-flask', difficulties: ['easy', 'medium', 'hard', 'expert'] },
+  portugues: { name: '📚 PORTUGUÊS', color: '#6366f1', icon: 'fa-book', difficulties: ['easy', 'medium'] },
+  entretenimento: { name: '🎬 ENTRETENIMENTO', color: '#ec4899', icon: 'fa-film', difficulties: ['easy', 'medium'] },
+  esportes: { name: '⚽ ESPORTES', color: '#ef4444', icon: 'fa-futbol', difficulties: ['easy', 'medium'] },
+  curiosidades: { name: '🤔 CURIOSIDADES', color: '#f97316', icon: 'fa-lightbulb', difficulties: ['easy', 'medium', 'hard'] },
+  pegadinhas: { name: '🎭 PEGADINHAS', color: '#8b5cf6', icon: 'fa-theater-masks', difficulties: ['medium', 'hard'] },
+  familia: { name: '👨‍👩‍👧‍👦 FAMÍLIA', color: '#f59e0b', icon: 'fa-users', difficulties: ['easy', 'medium'] }
+};
+
+const QuestionsDB = {
+  easy: [
+    ['🧮 Quanto é 5 + 7?', ['12', '13', '11', '10'], 0, 'matematica', 5],
+    ['🧮 Quanto é 10 x 3?', ['30', '13', '20', '33'], 0, 'matematica', 5],
+    ['🧮 Qual é o dobro de 8?', ['16', '4', '10', '8'], 0, 'matematica', 5],
+    ['🧮 Quanto é 15 - 6?', ['9', '8', '10', '11'], 0, 'matematica', 5],
+    ['🧮 Quanto é 20 ÷ 4?', ['5', '4', '6', '8'], 0, 'matematica', 5],
+
+    ['🌎 Qual é a capital do Brasil?', ['Brasília', 'Rio de Janeiro', 'São Paulo', 'Salvador'], 0, 'geografia', 5],
+    ['🌎 Qual oceano banha o Brasil?', ['Atlântico', 'Pacífico', 'Índico', 'Ártico'], 0, 'geografia', 5],
+    ['🌎 Quantos estados tem o Brasil?', ['26', '25', '27', '24'], 0, 'geografia', 5],
+
+    ['🏛️ Quem descobriu o Brasil?', ['Pedro Álvares Cabral', 'Cristóvão Colombo', 'Dom Pedro I', 'Tiradentes'], 0, 'historia', 5],
+    ['🏛️ Qual a cor da bandeira do Brasil?', ['Verde e amarela', 'Vermelha e branca', 'Azul e branca', 'Verde e vermelha'], 0, 'historia', 5],
+
+    ['🔬 Quantos planetas tem no Sistema Solar?', ['8', '7', '9', '10'], 0, 'ciencia', 5],
+    ['🔬 Qual planeta é conhecido como planeta vermelho?', ['Marte', 'Vênus', 'Terra', 'Júpiter'], 0, 'ciencia', 5],
+    ['🔬 Que animal é o maior do mundo?', ['Baleia azul', 'Elefante', 'Tubarão-baleia', 'Girafa'], 0, 'ciencia', 5],
+
+    ['📚 Quantas letras tem o alfabeto português?', ['26', '24', '27', '23'], 0, 'portugues', 5],
+    ['📚 Qual o plural de "cão"?', ['Cães', 'Cãos', 'Cãezinhos', 'Cãozões'], 0, 'portugues', 5],
+    ['📚 Complete: "O gato ___ o rato"', ['persegue', 'perseguem', 'perseguir', 'perseguindo'], 0, 'portugues', 5],
+
+    ['🎬 Quem é o rei do pop?', ['Michael Jackson', 'Elvis Presley', 'Madonna', 'Beyoncé'], 0, 'entretenimento', 5],
+    ['🎬 Qual é o filme da Disney com uma princesa chamada Elsa?', ['Frozen', 'Moana', 'Valente', 'Encanto'], 0, 'entretenimento', 5],
+    ['🎬 Quem criou o Mickey Mouse?', ['Walt Disney', 'Steven Spielberg', 'George Lucas', 'Stan Lee'], 0, 'entretenimento', 5],
+
+    ['⚽ Quantos jogadores tem um time de futebol?', ['11', '10', '12', '9'], 0, 'esportes', 5],
+    ['⚽ Em que país nasceu o futebol?', ['Inglaterra', 'Brasil', 'Alemanha', 'Itália'], 0, 'esportes', 5],
+    ['🏀 Quantos pontos vale uma cesta de três pontos no basquete?', ['3', '2', '1', '4'], 0, 'esportes', 5],
+
+    ['🤔 Qual animal é conhecido como "melhor amigo do homem"?', ['Cachorro', 'Gato', 'Pássaro', 'Peixe'], 0, 'curiosidades', 5],
+    ['🤔 Quantos dias tem uma semana?', ['7', '5', '6', '8'], 0, 'curiosidades', 5],
+    ['🤔 Qual é a cor do céu em um dia claro?', ['Azul', 'Verde', 'Vermelho', 'Amarelo'], 0, 'curiosidades', 5],
+
+    ['👨‍👩‍👧‍👦 Se seu pai tem um filho que não é seu irmão, quem é ele?', ['Você', 'Seu primo', 'Seu tio', 'Seu avô'], 0, 'familia', 5],
+    ['👨‍👩‍👧‍👦 A irmã da sua mãe é sua...?', ['Tia', 'Prima', 'Madrinha', 'Sogra'], 0, 'familia', 5],
+    ['👨‍👩‍👧‍👦 Quantas pessoas são um casal?', ['2', '1', '3', '4'], 0, 'familia', 5],
+
+    ['🎭 O pai de João tem 4 filhos: João, Joãozinho, Joãozão e...?', ['João', 'Maria', 'José', 'Pedro'], 0, 'pegadinhas', 10],
+    ['🎭 Quantos meses tem 28 dias?', ['Todos', 'Apenas fevereiro', '6 meses', '3 meses'], 0, 'pegadinhas', 10],
+    ['🎭 Se você tem 3 maçãs e tira 2, quantas você tem?', ['2', '1', '3', '5'], 0, 'pegadinhas', 10]
+  ],
+
+  medium: [
+    ['🧮 Quanto é 15 x 4?', ['60', '45', '50', '55'], 0, 'matematica', 10],
+    ['🧮 Qual é a raiz quadrada de 64?', ['8', '6', '7', '9'], 0, 'matematica', 10],
+    ['🧮 Quanto é 25% de 200?', ['50', '25', '75', '100'], 0, 'matematica', 10],
+    ['🧮 Qual o próximo número: 2, 4, 6, 8...?', ['10', '9', '12', '7'], 0, 'matematica', 10],
+    ['🧮 Quanto é 3³?', ['27', '9', '6', '12'], 0, 'matematica', 10],
+
+    ['🌎 Qual é o maior país do mundo em área?', ['Rússia', 'China', 'Canadá', 'EUA'], 0, 'geografia', 10],
+    ['🌎 Qual é o menor país do mundo?', ['Vaticano', 'Mônaco', 'San Marino', 'Liechtenstein'], 0, 'geografia', 10],
+    ['🌎 Qual rio é o mais longo do mundo?', ['Amazonas', 'Nilo', 'Yangtzé', 'Mississippi'], 1, 'geografia', 10],
+    ['🌎 Qual a capital da França?', ['Paris', 'Londres', 'Roma', 'Berlim'], 0, 'geografia', 10],
+    ['🌎 Em qual continente fica o Egito?', ['África', 'Ásia', 'Europa', 'América'], 0, 'geografia', 10],
+
+    ['🏛️ Em que ano o Brasil se tornou independente?', ['1822', '1500', '1889', '1815'], 0, 'historia', 10],
+    ['🏛️ Quem foi o primeiro presidente do Brasil?', ['Deodoro da Fonseca', 'Getúlio Vargas', 'Juscelino Kubitschek', 'Dom Pedro II'], 0, 'historia', 10],
+    ['🏛️ Quem proclamou a República no Brasil?', ['Marechal Deodoro', 'Dom Pedro II', 'Tiradentes', 'Duque de Caxias'], 0, 'historia', 10],
+    ['🏛️ Em que ano terminou a Segunda Guerra Mundial?', ['1945', '1939', '1941', '1943'], 0, 'historia', 10],
+    ['🏛️ Quem foi o inventor da lâmpada?', ['Thomas Edison', 'Nikola Tesla', 'Albert Einstein', 'Isaac Newton'], 0, 'historia', 10],
+
+    ['🔬 Qual é o maior animal terrestre?', ['Elefante africano', 'Girafa', 'Baleia azul', 'Urso polar'], 0, 'ciencia', 10],
+    ['🔬 Quantos ossos tem o corpo humano adulto?', ['206', '200', '210', '196'], 0, 'ciencia', 10],
+    ['🔬 Qual gás é mais abundante na atmosfera?', ['Nitrogênio', 'Oxigênio', 'Gás Carbônico', 'Argônio'], 0, 'ciencia', 10],
+    ['🔬 Quantas pernas tem uma aranha?', ['8', '6', '10', '12'], 0, 'ciencia', 10],
+    ['🔬 Que planeta é conhecido como "planeta azul"?', ['Terra', 'Netuno', 'Urano', 'Marte'], 0, 'ciencia', 10],
+
+    ['📚 Quantas sílabas tem a palavra "paralelepípedo"?', ['7', '6', '8', '5'], 0, 'portugues', 10],
+    ['📚 Qual destas palavras é um substantivo?', ['Casa', 'Correr', 'Bonito', 'Rapidamente'], 0, 'portugues', 10],
+    ['📚 Qual é o aumentativo de "casa"?', ['Casão', 'Casarão', 'Casinha', 'Casebre'], 1, 'portugues', 10],
+    ['📚 Qual destas palavras está grafada corretamente?', ['Exceção', 'Excessão', 'Excesão', 'Excecão'], 0, 'portugues', 10],
+    ['📚 Complete: "Ele ___ ao mercado"', ['foi', 'fui', 'vai', 'vou'], 0, 'portugues', 10],
+
+    ['🎬 Quem pintou a Mona Lisa?', ['Leonardo da Vinci', 'Vincent van Gogh', 'Pablo Picasso', 'Michelangelo'], 0, 'entretenimento', 10],
+    ['🎬 Qual empresa criou o Mickey Mouse?', ['Disney', 'Warner Bros', 'Pixar', 'DreamWorks'], 0, 'entretenimento', 10],
+    ['🎬 Quantos anéis de poder existem em "O Senhor dos Anéis"?', ['20', '1', '3', '7'], 0, 'entretenimento', 10],
+    ['🎬 Qual é o nome do robô em "Star Wars"?', ['R2-D2', 'C-3PO', 'BB-8', 'D-0'], 0, 'entretenimento', 10],
+    ['🎬 Quem escreveu "Harry Potter"?', ['J.K. Rowling', 'Stephen King', 'George R.R. Martin', 'J.R.R. Tolkien'], 0, 'entretenimento', 10],
+
+    ['⚽ Quantas Copa do Mundo o Brasil ganhou?', ['5', '4', '6', '3'], 0, 'esportes', 10],
+    ['⚽ Qual jogador brasileiro é conhecido como "Rei do Futebol"?', ['Pelé', 'Maradona', 'Messi', 'Ronaldo'], 0, 'esportes', 10],
+    ['🏀 Qual é a altura oficial da cesta de basquete?', ['3,05m', '2,80m', '3,20m', '2,95m'], 0, 'esportes', 10],
+    ['🎾 Quantos pontos são necessários para ganhar um game no tênis?', ['4', '3', '5', '6'], 0, 'esportes', 10],
+    ['🏊 Quantas medalhas de ouro Michael Phelps tem nas Olimpíadas?', ['23', '15', '28', '19'], 0, 'esportes', 10],
+
+    ['🤔 Quantos lados tem um hexágono?', ['6', '5', '7', '8'], 0, 'curiosidades', 10],
+    ['🤔 Que animal dorme de cabeça para baixo?', ['Morcego', 'Preguiça', 'Coruja', 'Esquilo'], 0, 'curiosidades', 10],
+    ['🤔 Quantos continentes existem no mundo?', ['7', '5', '6', '8'], 0, 'curiosidades', 10],
+    ['🤔 Qual é o metal líquido à temperatura ambiente?', ['Mercúrio', 'Ouro', 'Prata', 'Ferro'], 0, 'curiosidades', 10],
+    ['🤔 Quantos sentidos humanos existem?', ['5', '4', '6', '7'], 0, 'curiosidades', 10],
+
+    ['🎭 Um avião cai na fronteira entre Brasil e Argentina. Onde enterram os sobreviventes?', ['Sobreviventes não se enterram', 'No Brasil', 'Na Argentina', 'No país de origem'], 0, 'pegadinhas', 15],
+    ['🎭 Se 2 é companheiro, 3 é multidão, 4 e 5 é...?', ['Muito', 'Demais', '9', 'Nada'], 2, 'pegadinhas', 15],
+    ['🎭 Quantas letras tem a palavra "alfabeto"?', ['8', '7', '9', '10'], 0, 'pegadinhas', 15],
+    ['🎭 Um pato dá 3 voltas em torno de um lago em 3 minutos. Em quanto tempo 3 patos dão 3 voltas?', ['3 minutos', '9 minutos', '1 minuto', '6 minutos'], 0, 'pegadinhas', 15],
+    ['🎭 O que é que quanto mais você tira, maior fica?', ['Buraco', 'Fogo', 'Dinheiro', 'Tempo'], 0, 'pegadinhas', 15],
+
+    ['👨‍👩‍👧‍👦 O irmão do seu pai é seu...?', ['Tio', 'Primo', 'Sobrinho', 'Avô'], 0, 'familia', 10],
+    ['👨‍👩‍👧‍👦 Se você tem uma irmã, e ela tem um irmão, quantos irmãos você tem?', ['1', '2', '0', '3'], 0, 'familia', 10],
+    ['👨‍👩‍👧‍👦 A mãe do seu pai é sua...?', ['Avó', 'Tia', 'Madrinha', 'Bisavó'], 0, 'familia', 10]
+  ],
+
+  hard: [
+    ['🧮 Quanto é 17²?', ['289', '279', '299', '269'], 0, 'matematica', 15],
+    ['🧮 Quantos graus tem a soma dos ângulos internos de um triângulo?', ['180°', '90°', '360°', '270°'], 0, 'matematica', 15],
+    ['🧮 Qual é o valor de π com duas casas decimais?', ['3.14', '3.15', '3.16', '3.13'], 0, 'matematica', 15],
+    ['🧮 Quanto é a raiz cúbica de 27?', ['3', '9', '6', '1'], 0, 'matematica', 15],
+    ['🧮 Qual é o MMC de 12 e 18?', ['36', '24', '48', '54'], 0, 'matematica', 15],
+
+    ['🌎 Qual o país com maior população do mundo?', ['China', 'Índia', 'EUA', 'Indonésia'], 0, 'geografia', 15],
+    ['🌎 Qual a capital da Austrália?', ['Camberra', 'Sydney', 'Melbourne', 'Perth'], 0, 'geografia', 15],
+    ['🌎 Em que país fica a Torre Eiffel?', ['França', 'Itália', 'Espanha', 'Alemanha'], 0, 'geografia', 15],
+    ['🌎 Qual é o maior deserto do mundo?', ['Antártida', 'Saara', 'Arábia', 'Gobi'], 0, 'geografia', 15],
+    ['🌎 Quantos países fazem parte da União Europeia?', ['27', '25', '30', '28'], 0, 'geografia', 15],
+
+    ['🏛️ Em que ano começou a Segunda Guerra Mundial?', ['1939', '1914', '1945', '1933'], 0, 'historia', 15],
+    ['🏛️ Quem foi o primeiro homem a pisar na Lua?', ['Neil Armstrong', 'Buzz Aldrin', 'Yuri Gagarin', 'Michael Collins'], 0, 'historia', 15],
+    ['🏛️ Em que ano foi proclamada a República no Brasil?', ['1889', '1822', '1891', '1900'], 0, 'historia', 15],
+    ['🏛️ Quem foi o último imperador do Brasil?', ['Dom Pedro II', 'Dom Pedro I', 'Dom João VI', 'Princesa Isabel'], 0, 'historia', 15],
+    ['🏛️ Quem pintou "A Última Ceia"?', ['Leonardo da Vinci', 'Michelangelo', 'Rafael', 'Donatello'], 0, 'historia', 15],
+
+    ['🔬 Qual é o elemento químico mais abundante no universo?', ['Hidrogênio', 'Oxigênio', 'Hélio', 'Carbono'], 0, 'ciencia', 15],
+    ['🔬 Quantos cromossomos tem uma célula humana normal?', ['46', '23', '48', '24'], 0, 'ciencia', 15],
+    ['🔬 Qual a velocidade da luz no vácuo?', ['300.000 km/s', '150.000 km/s', '450.000 km/s', '1.000.000 km/s'], 0, 'ciencia', 15],
+    ['🔬 Que planeta tem os maiores anéis?', ['Saturno', 'Júpiter', 'Urano', 'Netuno'], 0, 'ciencia', 15],
+    ['🔬 Quantas patas tem um inseto?', ['6', '8', '4', '10'], 0, 'ciencia', 15],
+
+    ['🎭 Qual é o animal que tem 4 patas de manhã, 2 ao meio-dia e 3 à tarde?', ['O homem', 'Macaco', 'Cavalo', 'Gato'], 0, 'pegadinhas', 20],
+    ['🎭 Um homem olha para uma foto e diz: "Irmãos e irmãs eu não tenho, mas o pai desse homem é filho do meu pai". Quem é o homem da foto?', ['Seu filho', 'Seu pai', 'Ele mesmo', 'Seu avô'], 0, 'pegadinhas', 20],
+    ['🎭 Quanto tempo leva para cozinhar 6 ovos, se 2 levam 4 minutos?', ['4 minutos', '8 minutos', '12 minutos', '6 minutos'], 0, 'pegadinhas', 20]
+  ],
+
+  expert: [
+    ['🧮 Quanto é a derivada de x³?', ['3x²', 'x²', '3x', 'x³'], 0, 'matematica', 20],
+    ['🧮 Qual o logaritmo de 100 na base 10?', ['2', '1', '10', '100'], 0, 'matematica', 20],
+    ['🧮 Qual é o seno de 90 graus?', ['1', '0', '0.5', '√2/2'], 0, 'matematica', 20],
+    ['🧮 Quanto é 5! (fatorial)?', ['120', '60', '24', '720'], 0, 'matematica', 20],
+
+    ['🔬 Quem desenvolveu a teoria da relatividade?', ['Albert Einstein', 'Isaac Newton', 'Stephen Hawking', 'Galileu Galilei'], 0, 'ciencia', 20],
+    ['🔬 Qual é a fórmula química da água?', ['H₂O', 'CO₂', 'NaCl', 'O₂'], 0, 'ciencia', 20],
+    ['🔬 Que cientista descobriu a penicilina?', ['Alexander Fleming', 'Louis Pasteur', 'Marie Curie', 'Gregor Mendel'], 0, 'ciencia', 20],
+    ['🔬 Quantas vértebras tem a coluna cervical humana?', ['7', '5', '12', '24'], 0, 'ciencia', 20],
+
+    ['🏛️ Em que ano Cristóvão Colombo chegou à América?', ['1492', '1500', '1453', '1519'], 0, 'historia', 20],
+    ['🏛️ Quem foi o primeiro presidente dos Estados Unidos?', ['George Washington', 'Abraham Lincoln', 'Thomas Jefferson', 'John Adams'], 0, 'historia', 20],
+
+    ['🌎 Qual é o ponto mais alto da Terra?', ['Monte Everest', 'K2', 'Monte Kilimanjaro', 'Monte McKinley'], 0, 'geografia', 20],
+    ['🌎 Qual é o maior oceano do mundo?', ['Pacífico', 'Atlântico', 'Índico', 'Ártico'], 0, 'geografia', 20]
+  ]
+};
+
+const Achievements = {
+  first_blood: { name: "Primeiro Sangue 🩸", description: "Acertou a primeira pergunta do jogo", icon: "🩸" },
+  streak_3: { name: "Em Chamas 🔥", description: "Acertou 3 perguntas consecutivas", icon: "🔥" },
+  streak_5: { name: "Lenda Viva ⚡", description: "Acertou 5 perguntas consecutivas", icon: "⚡" },
+  perfect_round: { name: "Perfeição ✨", description: "Acertou todas as perguntas de uma rodada", icon: "✨" },
+  speed_demon: { name: "Relâmpago ⚡", description: "Respondeu em menos de 3 segundos", icon: "⏱️" },
+  comeback: { name: "Virada Histórica 📈", description: "Venceu estando atrás na última rodada", icon: "📈" },
+  family_help: { name: "Família Unida 👨‍👩‍👧‍👦", description: "Usou todos os power-ups de ajuda", icon: "👨‍👩‍👧‍👦" },
+  math_master: { name: "Mestre da Matemática 🧮", description: "Acertou 10 perguntas de matemática", icon: "🧮" },
+  geography_expert: { name: "Explorador 🌎", description: "Acertou 10 perguntas de geografia", icon: "🌎" },
+  history_buff: { name: "Historiador 🏛️", description: "Acertou 10 perguntas de história", icon: "🏛️" }
+};
+
+const FunnyErrors = [
+  "Essa foi longe, hein!",
+  "Cérebro deu tela azul!",
+  "A galinha cantou fora do tom!",
+  "Resposta de outro planeta!",
+  "Errou feio, errou rude!"
+];
+
+const MotivationalPhrases = [
+  "EXCELENTE!",
+  "INCRÍVEL!",
+  "BRILHANTE!",
+  "NA MOSCA!",
+  "ESPETACULAR!"
+];
+
+// ============================================
+// UTILITÁRIOS
+// ============================================
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function getRandomItem(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+function generateMathQuestion(difficulty) {
+  let a, b, operation, points;
+
+  switch (difficulty) {
+    case 'easy':
+      a = Math.floor(Math.random() * 20) + 1;
+      b = Math.floor(Math.random() * 20) + 1;
+      operation = Math.random() > 0.5 ? '+' : '×';
+      points = 5;
+      break;
+    case 'medium':
+      a = Math.floor(Math.random() * 50) + 1;
+      b = Math.floor(Math.random() * 50) + 1;
+      operation = ['+', '-', '×'][Math.floor(Math.random() * 3)];
+      points = 10;
+      break;
+    case 'hard':
+      a = Math.floor(Math.random() * 100) + 1;
+      b = Math.floor(Math.random() * 100) + 1;
+      operation = ['+', '-', '×', '÷'][Math.floor(Math.random() * 4)];
+      points = 15;
+      break;
+    case 'expert':
+      a = Math.floor(Math.random() * 100) + 1;
+      b = Math.floor(Math.random() * 100) + 1;
+      operation = ['+', '-', '×', '÷', '²', '√'][Math.floor(Math.random() * 6)];
+      points = 20;
+      break;
+    default:
+      a = Math.floor(Math.random() * 50) + 1;
+      b = Math.floor(Math.random() * 50) + 1;
+      operation = '+';
+      points = 10;
+  }
+
+  let question, correctAnswer;
+
+  switch (operation) {
+    case '+': question = `🧮 Quanto é ${a} + ${b}?`; correctAnswer = a + b; break;
+    case '-': question = `🧮 Quanto é ${a} - ${b}?`; correctAnswer = a - b; break;
+    case '×': question = `🧮 Quanto é ${a} × ${b}?`; correctAnswer = a * b; break;
+    case '÷':
+      b = Math.floor(Math.random() * 10) + 1;
+      a = b * (Math.floor(Math.random() * 10) + 1);
+      question = `🧮 Quanto é ${a} ÷ ${b}?`;
+      correctAnswer = a / b;
+      break;
+    case '²':
+      question = `🧮 Quanto é ${a}²?`;
+      correctAnswer = a * a;
+      break;
+    case '√':
+      a = Math.floor(Math.random() * 10) + 1;
+      const square = a * a;
+      question = `🧮 Qual é a raiz quadrada de ${square}?`;
+      correctAnswer = a;
+      break;
+  }
+
+  const options = [correctAnswer];
+  while (options.length < 4) {
+    const wrong = correctAnswer + (Math.floor(Math.random() * 20) - 10);
+    if (wrong !== correctAnswer && !options.includes(wrong) && wrong > 0) options.push(wrong);
+  }
+
+  shuffleArray(options);
+  const correctIndex = options.indexOf(correctAnswer);
+
+  return [question, options.map(String), correctIndex, 'matematica', points];
+}
+
+function showNotification(message, type = 'info') {
+  const colors = {
+    success: 'var(--success)',
+    error: 'var(--danger)',
+    warning: 'var(--warning)',
+    info: 'var(--info)'
+  };
+
+  const notification = document.createElement('div');
+  notification.style.cssText = `
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 23, 42, 0.95);
+    color: white;
+    padding: 20px 30px;
+    border-radius: 15px;
+    border: 3px solid ${colors[type] || colors.info};
+    z-index: 10000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    animation: notificationSlideIn 0.3s ease-out;
+    max-width: 90%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    backdrop-filter: blur(10px);
+  `;
+  notification.textContent = message;
+  document.body.appendChild(notification);
+
+  setTimeout(() => {
+    notification.style.animation = 'notificationSlideOut 0.3s ease-out';
+    setTimeout(() => notification.remove(), 300);
+  }, 2500);
+}
+
+function speak(text) {
+  if (!GameConfig.audioEnabled) return;
+  if (!('speechSynthesis' in window)) return;
+
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'pt-BR';
+  utterance.rate = GameConfig.speechRate;
+  utterance.volume = 1;
+  window.speechSynthesis.speak(utterance);
+}
+
+function createConfetti() {
+  const colors = ['#f59e0b', '#3b82f6', '#10b981', '#8b5cf6', '#ec4899', '#ef4444'];
+  for (let i = 0; i < 120; i++) {
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti';
+    confetti.style.cssText = `
+      width: ${Math.random() * 16 + 8}px;
+      height: ${Math.random() * 16 + 8}px;
+      background: ${colors[Math.floor(Math.random() * colors.length)]};
+      top: -50px;
+      left: ${Math.random() * 100}vw;
+      border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
+      animation: confettiRain ${Math.random() * 3 + 2}s linear forwards;
+      opacity: 0.9;
+      transform: rotate(${Math.random() * 360}deg);
+    `;
+    document.body.appendChild(confetti);
+    setTimeout(() => confetti.remove(), 5000);
+  }
+}
+
+function saveRecord(score, player, mode, difficulty) {
+  const record = {
+    score,
+    player,
+    mode,
+    difficulty,
+    date: new Date().toLocaleDateString('pt-BR'),
+    timestamp: Date.now()
+  };
+
+  GameState.records.push(record);
+  GameState.records.sort((a, b) => b.score - a.score);
+  if (GameState.records.length > 10) GameState.records.length = 10;
+
+  safeSetLocalStorage('familyShowRecords', GameState.records);
+}
+
+// ============================================
+// MODOS (CORREÇÃO: selectMode EXISTE)
+// ============================================
+function selectMode(modeKey) {
+  GameState.mode = modeKey;
+
+  const cards = document.querySelectorAll('.mode-card');
+  cards.forEach(c => c.classList.remove('selected'));
+
+  // Seleciona o card clicado pelo modo (baseado no texto do h3)
+  cards.forEach(c => {
+    const t = (c.querySelector('h3')?.textContent || '').toLowerCase();
+    const map = {
+      classic: 'clássico',
+      quick: 'rápido',
+      duel: 'duelo',
+      teams: 'times',
+      survival: 'survival',
+      coop: 'cooperativo'
+    };
+    if (t.includes(map[modeKey])) c.classList.add('selected');
+  });
+
+  showNotification(`🎮 Modo selecionado: ${modeKey.toUpperCase()}`, 'info');
+}
+
+// ============================================
+// INICIALIZAÇÃO
+// ============================================
+function initGame() {
+  console.log('🎮 Inicializando Show da Família...');
+
+  setupEventListeners();
+  loadRecords();
+  setupAudio();
+  generateQuestions();
+  showQuickStats();
+
+  // Seleciona clássico por padrão
+  selectMode('classic');
+
+  console.log('✅ Jogo inicializado com sucesso!');
+}
+
+function setupEventListeners() {
+  const playerSlider = document.getElementById('numPlayers');
+  const playerCount = document.getElementById('playerCount');
+
+  playerSlider.addEventListener('input', function () {
+    playerCount.textContent = `${this.value} JOGADORES`;
+  });
+
+  document.getElementById('audioToggle').addEventListener('click', toggleAudio);
+}
+
+function setupAudio() {
+  if (!('speechSynthesis' in window)) {
+    console.warn('⚠️ Navegador não suporta síntese de voz');
+    GameConfig.audioEnabled = false;
+    const btn = document.getElementById('audioToggle');
+    btn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+    btn.title = 'Áudio não suportado';
+    btn.style.opacity = '0.5';
+    btn.style.cursor = 'not-allowed';
+  }
+}
+
+function toggleAudio() {
+  if (!('speechSynthesis' in window)) return;
+
+  GameConfig.audioEnabled = !GameConfig.audioEnabled;
+  const audioBtn = document.getElementById('audioToggle');
+
+  if (GameConfig.audioEnabled) {
+    audioBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+    audioBtn.title = 'Som ligado';
+    audioBtn.style.background = 'rgba(16, 185, 129, 0.9)';
+    speak("Som ativado! Vamos jogar!");
+    showNotification('🔊 Som ativado!', 'success');
+  } else {
+    audioBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+    audioBtn.title = 'Som desligado';
+    audioBtn.style.background = 'rgba(15, 23, 42, 0.9)';
+    window.speechSynthesis.cancel();
+    showNotification('🔇 Som desativado', 'warning');
+  }
+}
+
+// ============================================
+// CONFIGURAÇÃO
+// ============================================
+function setupPlayers() {
+  const numPlayers = parseInt(document.getElementById('numPlayers').value, 10);
+  GameState.difficulty = document.getElementById('difficulty').value;
+
+  const rounds = document.getElementById('rounds').value;
+  GameState.totalRounds = rounds === 'infinite' ? 999 : parseInt(rounds, 10);
+
+  let playersHTML = '';
+  const avatars = ['👨', '👩', '👦', '👧', '👴', '👵', '🧑', '🧒'];
+
+  for (let i = 0; i < numPlayers; i++) {
+    const defaultNames = ['Papai', 'Mamãe', 'Filho(a)', 'Vovô', 'Vovó', 'Tio(a)', 'Primo(a)', 'Amigo(a)'];
+    const team = GameState.mode === 'teams'
+      ? (i < Math.ceil(numPlayers / 2) ? '👦 Crianças' : '👨 Adultos')
+      : null;
+
+    playersHTML += `
+      <div class="player-card">
+        <span class="player-avatar">${avatars[i % avatars.length]}</span>
+        <input type="text" class="setting-input player-name-input"
+               placeholder="Nome do Jogador ${i + 1}"
+               value="${defaultNames[i] || `Jogador ${i + 1}`}"
+               style="text-align: center; font-weight: bold;">
+        ${team ? `
+          <div style="margin-top: 10px; padding: 5px 10px; background: ${team.includes('Crianças') ? 'rgba(245, 158, 11, 0.2)' : 'rgba(59, 130, 246, 0.2)'};
+                      border-radius: 10px; color: ${team.includes('Crianças') ? '#f59e0b' : '#3b82f6'}; font-weight: bold;">
+            ${team}
+          </div>` : ''}
+      </div>
+    `;
+  }
+
+  document.getElementById('playersGrid').innerHTML = playersHTML;
+  document.getElementById('welcomeScreen').classList.add('hidden');
+  document.getElementById('playerSetup').classList.remove('hidden');
+}
+
+function generateQuestions() {
+  const difficulty = GameState.difficulty || 'medium';
+  let allQuestions = [];
+
+  if (difficulty === 'mixed') {
+    allQuestions = [...QuestionsDB.easy, ...QuestionsDB.medium, ...QuestionsDB.hard, ...QuestionsDB.expert];
+  } else {
+    allQuestions = [...(QuestionsDB[difficulty] || QuestionsDB.medium)];
+
+    // adiciona perguntas de matemática geradas
+    for (let i = 0; i < 20; i++) allQuestions.push(generateMathQuestion(difficulty));
+  }
+
+  GameState.questions = shuffleArray([...allQuestions]);
+  GameState.stats.totalQuestions = GameState.questions.length;
+}
+
+// ============================================
+// JOGO
+// ============================================
+function startGame() {
+  GameState.players = [];
+  GameState.scores = [];
+  GameState.streaks = [];
+  GameState.powerUps = [];
+
+  document.querySelectorAll('.player-name-input').forEach((input, index) => {
+    const name = input.value.trim() || `Jogador ${index + 1}`;
+    GameState.players.push(name);
+    GameState.scores.push(0);
+    GameState.streaks.push(0);
+    GameState.powerUps.push({ help: 2, time: 1, double: 1, skip: 1 });
+  });
+
+  GameState.currentPlayer = 0;
+  GameState.currentRound = 1;
+  GameState.gameActive = true;
+  GameState.gamePaused = false;
+  GameState.usedQuestions.clear();
+  GameState.doublePoints = false;
+  GameState.timer = 30;
+
+  GameState.stats = {
+    totalQuestions: GameState.questions.length,
+    correctAnswers: 0,
+    fastestAnswer: 999,
+    categories: {},
+    powerUpsUsed: 0,
+    hintsUsed: 0,
+    startTime: Date.now(),
+    achievements: new Set()
+  };
+
+  if (GameState.questions.length === 0) generateQuestions();
+
+  document.getElementById('playerSetup').classList.add('hidden');
+  document.getElementById('gameScreen').classList.remove('hidden');
+
+  document.getElementById('totalRounds').textContent = GameState.totalRounds;
+  document.getElementById('currentRound').textContent = 1;
+
+  updateScoreboard();
+  updatePowerUps();
+
+  showNotification('🎮 O jogo começou! Boa sorte!', 'success');
+
+  setTimeout(loadQuestion, 600);
+}
+
+function loadQuestion() {
+  if (!GameState.gameActive || GameState.gamePaused) return;
+
+  if (GameState.currentRound > GameState.totalRounds) {
+    endGame();
+    return;
+  }
+
+  let questionIndex;
+  let attempts = 0;
+
+  do {
+    questionIndex = Math.floor(Math.random() * GameState.questions.length);
+    attempts++;
+    if (attempts > 200) { endGame(); return; }
+  } while (GameState.usedQuestions.has(questionIndex));
+
+  GameState.usedQuestions.add(questionIndex);
+  const question = GameState.questions[questionIndex];
+  if (!question) { endGame(); return; }
+
+  const [text, options, correctIndex, category, points] = question;
+
+  GameState.currentQuestionIndex = questionIndex;
+  GameState.currentCorrectIndex = correctIndex;
+  GameState.currentCategoryKey = category;
+  GameState.currentPoints = points;
+  GameState.questionStartAt = Date.now();
+
+  const playerName = GameState.players[GameState.currentPlayer];
+  document.getElementById('turnText').innerHTML =
+    `🎮 VEZ DE: <span style="color: var(--secondary);">${playerName.toUpperCase()}</span>`;
+  document.getElementById('currentRound').textContent = GameState.currentRound;
+
+  const categoryInfo = Categories[category] || Categories.curiosidades;
+  document.getElementById('categoryDisplay').innerHTML =
+    `<i class="fas ${categoryInfo.icon}"></i> ${categoryInfo.name}`;
+  document.getElementById('categoryDisplay').style.backgroundColor = `${categoryInfo.color}20`;
+  document.getElementById('categoryDisplay').style.color = categoryInfo.color;
+
+  document.getElementById('questionDisplay').textContent = text;
+
+  GameState.stats.categories[category] = (GameState.stats.categories[category] || 0) + 1;
+
+  const answersContainer = document.getElementById('answersContainer');
+  answersContainer.innerHTML = '';
+
+  const letters = ['A', 'B', 'C', 'D'];
+  options.forEach((option, index) => {
+    const div = document.createElement('div');
+    div.className = 'answer-option';
+    div.innerHTML = `
+      <span class="answer-letter">${letters[index]}</span>
+      <span class="answer-content">${option}</span>
+    `;
+    div.onclick = () => checkAnswer(index, correctIndex, points, GameState.questionStartAt);
+    answersContainer.appendChild(div);
+  });
+
+  updatePowerUps();
+  GameState.timer = 30;
+  startTimer();
+
+  if (GameConfig.audioEnabled) {
+    setTimeout(() => speak(`${playerName}, sua pergunta é: ${text}`), 300);
+  }
+}
+
+function checkAnswer(selectedIndex, correctIndex, points, startTime) {
+  const answers = document.querySelectorAll('.answer-option');
+  const responseTime = (Date.now() - startTime) / 1000;
+
+  answers.forEach(a => { a.onclick = null; a.style.cursor = 'default'; });
+
+  if (responseTime < GameState.stats.fastestAnswer) GameState.stats.fastestAnswer = responseTime;
+
+  const playerName = GameState.players[GameState.currentPlayer];
+  const playerIndex = GameState.currentPlayer;
+
+  if (selectedIndex === correctIndex) {
+    answers[selectedIndex].classList.add('correct');
+
+    let totalPoints = GameState.doublePoints ? points * 2 : points;
+    const timeBonus = GameState.timer > 15 ? 5 : 0;
+    totalPoints += timeBonus;
+
+    GameState.streaks[playerIndex]++;
+    if (GameState.streaks[playerIndex] >= 3) totalPoints += 10;
+
+    GameState.scores[playerIndex] += totalPoints;
+    GameState.stats.correctAnswers++;
+    GameState.doublePoints = false;
+
+    const msg = `${playerName}! ${getRandomItem(MotivationalPhrases)} +${totalPoints} pontos!`;
+    showNotification(msg, 'success');
+    speak(msg);
+  } else {
+    answers[selectedIndex].classList.add('wrong');
+    answers[correctIndex].classList.add('correct');
+
+    GameState.streaks[playerIndex] = 0;
+    GameState.doublePoints = false;
+
+    if (GameState.mode === 'survival') {
+      GameState.scores[playerIndex] = -999;
+      showNotification(`❌ ${playerName} foi ELIMINADO do jogo!`, 'error');
+    }
+
+    const funny = getRandomItem(FunnyErrors);
+    showNotification(`${playerName}, ${funny}`, 'error');
+    speak(funny);
+  }
+
+  stopTimer();
+  setTimeout(nextTurn, 1200);
+}
+
+function nextTurn() {
+  if (!GameState.gameActive || GameState.gamePaused) return;
+
+  GameState.currentPlayer = (GameState.currentPlayer + 1) % GameState.players.length;
+
+  if (GameState.mode === 'survival') {
+    const alive = GameState.players.filter((_, i) => GameState.scores[i] > -999);
+    while (GameState.scores[GameState.currentPlayer] <= -999 && alive.length > 1) {
+      GameState.currentPlayer = (GameState.currentPlayer + 1) % GameState.players.length;
+    }
+    if (alive.length === 1) { endGame(); return; }
+  }
+
+  if (GameState.currentPlayer === 0) {
+    GameState.currentRound++;
+    if (GameState.currentRound > GameState.totalRounds) { endGame(); return; }
+  }
+
+  updateScoreboard();
+  loadQuestion();
+}
+
+function startTimer() {
+  stopTimer();
+
+  const timerFill = document.getElementById('timerFill');
+  const timerText = document.getElementById('timerText');
+
+  timerFill.style.width = '100%';
+  timerText.textContent = `TEMPO: ${GameState.timer}s`;
+
+  GameState.timerInterval = setInterval(() => {
+    if (GameState.gamePaused) return;
+
+    GameState.timer--;
+    const percentage = (GameState.timer / 30) * 100;
+
+    timerFill.style.width = `${Math.max(0, percentage)}%`;
+    timerText.textContent = `TEMPO: ${Math.max(0, GameState.timer)}s`;
+
+    if (GameState.timer <= 10) {
+      timerFill.style.background = 'linear-gradient(90deg, var(--danger), #f87171)';
+      timerText.style.color = 'var(--danger)';
+    } else if (GameState.timer <= 20) {
+      timerFill.style.background = 'linear-gradient(90deg, var(--warning), #fbbf24)';
+      timerText.style.color = 'var(--warning)';
+    } else {
+      timerFill.style.background = 'linear-gradient(90deg, var(--success), #34d399)';
+      timerText.style.color = 'var(--success)';
+    }
+
+    if (GameState.timer <= 0) timeUp();
+  }, 1000);
+}
+
+function stopTimer() {
+  if (GameState.timerInterval) {
+    clearInterval(GameState.timerInterval);
+    GameState.timerInterval = null;
+  }
+}
+
+function timeUp() {
+  stopTimer();
+
+  const playerName = GameState.players[GameState.currentPlayer];
+  showNotification(`⏰ TEMPO ESGOTADO! ${playerName} perdeu a vez.`, 'warning');
+  speak("Tempo esgotado!");
+
+  if (GameState.mode === 'survival') {
+    GameState.scores[GameState.currentPlayer] = -999;
+    showNotification(`${playerName} foi ELIMINADO por tempo esgotado!`, 'error');
+  }
+
+  setTimeout(nextTurn, 900);
+}
+
+function pauseGame() {
+  if (!GameState.gameActive) return;
+
+  GameState.gamePaused = !GameState.gamePaused;
+
+  if (GameState.gamePaused) {
+    showNotification('⏸️ JOGO PAUSADO', 'warning');
+    document.querySelectorAll('.answer-option').forEach(btn => btn.style.pointerEvents = 'none');
+  } else {
+    showNotification('▶️ JOGO RETOMADO', 'success');
+    document.querySelectorAll('.answer-option').forEach(btn => btn.style.pointerEvents = 'auto');
+  }
+}
+
+// ============================================
+// POWER-UPS / DICAS
+// ============================================
+function usePowerUp(type) {
+  const playerIndex = GameState.currentPlayer;
+  const playerPowerUps = GameState.powerUps[playerIndex];
+  const playerName = GameState.players[playerIndex];
+
+  if (!playerPowerUps || playerPowerUps[type] <= 0) {
+    showNotification(`❌ ${playerName} não tem mais este power-up!`, 'error');
+    return;
+  }
+
+  playerPowerUps[type]--;
+  GameState.stats.powerUpsUsed++;
+
+  switch (type) {
+    case 'help': {
+      const answers = Array.from(document.querySelectorAll('.answer-option'));
+      if (GameState.currentCorrectIndex == null) {
+        showNotification('⚠️ Não foi possível usar a ajuda agora.', 'warning');
+        break;
+      }
+      const wrong = answers.filter((_, idx) => idx !== GameState.currentCorrectIndex);
+      shuffleArray(wrong);
+      wrong.slice(0, 2).forEach(el => {
+        el.style.opacity = '0.35';
+        el.style.pointerEvents = 'none';
+        el.style.textDecoration = 'line-through';
+      });
+      showNotification(`❓ ${playerName} usou AJUDA DA FAMÍLIA! 2 respostas eliminadas.`, 'info');
+      speak("Ajuda da família ativada!");
+      break;
+    }
+    case 'time':
+      GameState.timer += 15;
+      showNotification(`⏱️ ${playerName} ganhou 15 SEGUNDOS EXTRAS!`, 'success');
+      speak("Tempo extra!");
+      break;
+
+    case 'double':
+      GameState.doublePoints = true;
+      showNotification(`💎 ${playerName} ativou DUPLA PONTUAÇÃO!`, 'success');
+      speak("Dupla pontuação ativada!");
+      break;
+
+    case 'skip':
+      showNotification(`⏭️ ${playerName} PULOU esta pergunta!`, 'warning');
+      speak("Pergunta pulada!");
+      stopTimer();
+      setTimeout(nextTurn, 600);
+      break;
+  }
+
+  updatePowerUps();
+}
+
+function updatePowerUps() {
+  const playerIndex = GameState.currentPlayer;
+  const powerUps = GameState.powerUps[playerIndex] || { help: 0, time: 0, double: 0, skip: 0 };
+
+  document.getElementById('helpBtn').innerHTML = `<i class="fas fa-life-ring"></i> AJUDA (${powerUps.help})`;
+  document.getElementById('timeBtn').innerHTML = `<i class="fas fa-clock"></i> TEMPO (${powerUps.time})`;
+  document.getElementById('doubleBtn').innerHTML = `<i class="fas fa-gem"></i> DUPLO (${powerUps.double})`;
+  document.getElementById('skipBtn').innerHTML = `<i class="fas fa-forward"></i> PULAR (${powerUps.skip})`;
+}
+
+function showHint() {
+  const playerIndex = GameState.currentPlayer;
+  const playerName = GameState.players[playerIndex];
+
+  if (GameState.scores[playerIndex] >= 3) {
+    GameState.scores[playerIndex] -= 3;
+    GameState.stats.hintsUsed++;
+    showNotification(`${playerName} usou uma DICA! -3 pontos. 💡 Pense com calma!`, 'info');
+    speak("Dica ativada!");
+    updateScoreboard();
+  } else {
+    showNotification(`❌ ${playerName} não tem pontos suficientes para dica!`, 'error');
+  }
+}
+
+// ============================================
+// UI
+// ============================================
+function updateScoreboard() {
+  const scoreList = document.getElementById('scoreList');
+
+  const ranked = GameState.players.map((player, index) => ({
+    player,
+    index,
+    score: GameState.scores[index],
+    streak: GameState.streaks[index],
+    eliminated: GameState.scores[index] <= -999
+  }));
+
+  ranked.sort((a, b) => {
+    if (a.eliminated && !b.eliminated) return 1;
+    if (!a.eliminated && b.eliminated) return -1;
+    return b.score - a.score;
+  });
+
+  scoreList.innerHTML = ranked.map((item, rank) => {
+    const isCurrent = item.index === GameState.currentPlayer;
+    const streakBadge = item.streak >= 3 ? `<span style="color: var(--danger); font-weight: bold;"> 🔥${item.streak}</span>` : '';
+    const pos = rank === 0 ? '🥇' : rank === 1 ? '🥈' : rank === 2 ? '🥉' : '🔹';
+
+    return `
+      <div class="score-item ${isCurrent ? 'current' : ''}" style="${item.eliminated ? 'opacity:0.5;text-decoration:line-through;' : ''}">
+        <div class="score-player">
+          ${pos} ${item.player} ${streakBadge} ${isCurrent ? '<span style="color: var(--warning);">🎮</span>' : ''}
+        </div>
+        <div class="score-points">
+          ${item.eliminated ? '❌ ELIMINADO' : `${item.score} pts`}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function confirmQuit() {
+  if (confirm('Tem certeza que deseja sair? Todo o progresso será perdido.')) backToMenu();
+}
+
+// ============================================
+// FIM DE JOGO
+// ============================================
+function endGame() {
+  GameState.gameActive = false;
+  stopTimer();
+
+  const validScores = GameState.scores.filter(s => s > -999);
+  const maxScore = validScores.length ? Math.max(...validScores) : 0;
+
+  const winners = GameState.players.filter((_, i) => GameState.scores[i] === maxScore);
+
+  if (winners.length === 1) saveRecord(maxScore, winners[0], GameState.mode, GameState.difficulty);
+
+  document.getElementById('gameScreen').classList.add('hidden');
+  document.getElementById('resultsScreen').classList.remove('hidden');
+
+  const winnerCrown = document.getElementById('winnerCrown');
+  const winnerTitle = document.getElementById('winnerTitle');
+  const winnerScore = document.getElementById('winnerScore');
+
+  if (winners.length === 1) {
+    winnerCrown.textContent = '👑';
+    winnerTitle.innerHTML = `🏆 CAMPEÃO: <span style="color: var(--warning);">${winners[0].toUpperCase()}</span> 🏆`;
+    winnerScore.textContent = `Com ${maxScore} pontos!`;
+    speak(`Parabéns ${winners[0]}! Você venceu com ${maxScore} pontos!`);
+  } else if (winners.length > 1) {
+    winnerCrown.textContent = '👑👑';
+    winnerTitle.innerHTML = `🏆 EMPATE: <span style="color: var(--warning);">${winners.join(' e ').toUpperCase()}</span> 🏆`;
+    winnerScore.textContent = `Com ${maxScore} pontos cada!`;
+    speak(`Empate! Parabéns a todos!`);
+  } else {
+    winnerCrown.textContent = '😢';
+    winnerTitle.textContent = `🎮 FIM DE JOGO`;
+    winnerScore.textContent = `Todos foram eliminados!`;
+  }
+
+  showGameStats();
+  showAchievements();
+  createConfetti();
+}
+
+function showGameStats() {
+  const gameStats = document.getElementById('gameStats');
+  const totalQuestions = GameState.usedQuestions.size;
+  const accuracy = totalQuestions > 0 ? ((GameState.stats.correctAnswers / totalQuestions) * 100).toFixed(1) : 0;
+
+  let topCategory = 'Nenhuma';
+  let topCount = 0;
+  for (const [cat, count] of Object.entries(GameState.stats.categories)) {
+    if (count > topCount) { topCount = count; topCategory = Categories[cat]?.name || cat; }
+  }
+
+  const duration = GameState.stats.startTime ? Math.floor((Date.now() - GameState.stats.startTime) / 1000) : 0;
+  const minutes = Math.floor(duration / 60);
+  const seconds = duration % 60;
+
+  gameStats.innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;">
+      <div style="background: rgba(30,41,59,0.7); padding:20px; border-radius:15px;">
+        <h4 style="color: var(--info); margin-bottom:10px;"><i class="fas fa-chart-line"></i> DESEMPENHO</h4>
+        <p><strong>Total de Perguntas:</strong> ${totalQuestions}</p>
+        <p><strong>Acertos:</strong> ${GameState.stats.correctAnswers}</p>
+        <p><strong>Precisão:</strong> ${accuracy}%</p>
+        <p><strong>Tempo Mais Rápido:</strong> ${Number(GameState.stats.fastestAnswer).toFixed(2)}s</p>
+      </div>
+
+      <div style="background: rgba(30,41,59,0.7); padding:20px; border-radius:15px;">
+        <h4 style="color: var(--info); margin-bottom:10px;"><i class="fas fa-gamepad"></i> JOGO</h4>
+        <p><strong>Modo:</strong> ${GameState.mode.toUpperCase()}</p>
+        <p><strong>Dificuldade:</strong> ${GameState.difficulty.toUpperCase()}</p>
+        <p><strong>Duração:</strong> ${minutes}m ${seconds}s</p>
+        <p><strong>Categoria Mais Comum:</strong> ${topCategory}</p>
+      </div>
+
+      <div style="background: rgba(30,41,59,0.7); padding:20px; border-radius:15px;">
+        <h4 style="color: var(--info); margin-bottom:10px;"><i class="fas fa-magic"></i> RECURSOS</h4>
+        <p><strong>Power-ups Usados:</strong> ${GameState.stats.powerUpsUsed}</p>
+        <p><strong>Dicas Usadas:</strong> ${GameState.stats.hintsUsed}</p>
+        <p><strong>Rodadas Jogadas:</strong> ${Math.max(0, GameState.currentRound - 1)}</p>
+        <p><strong>Jogadores:</strong> ${GameState.players.length}</p>
+      </div>
+    </div>
+  `;
+}
+
+function unlockAchievement(key) {
+  const a = Achievements[key];
+  if (!a) return;
+  showNotification(`🎖️ CONQUISTA: ${a.name}! ${a.description}`, 'success');
+  speak(`Conquista desbloqueada: ${a.name}!`);
+}
+
+function showAchievements() {
+  const achievementsList = document.getElementById('achievementsList');
+  const achievementsDisplay = document.getElementById('achievementsDisplay');
+
+  const earned = Array.from(GameState.stats.achievements).filter(k => Achievements[k]).map(k => Achievements[k]);
+  if (earned.length === 0) { achievementsDisplay.style.display = 'none'; return; }
+
+  achievementsDisplay.style.display = 'block';
+  achievementsList.innerHTML = earned.map(a => `
+    <div style="background: rgba(16,185,129,0.2); padding:15px; border-radius:10px; border-left:4px solid var(--success); margin:10px 0;">
+      <div style="font-size: 1.2rem; margin-bottom: 5px;">${a.icon} ${a.name}</div>
+      <div style="font-size: 0.95rem; color: #94a3b8;">${a.description}</div>
+    </div>
+  `).join('');
+}
+
+// ============================================
+// NAVEGAÇÃO / RECORDES / STATS
+// ============================================
+function backToMenu() {
+  GameState.gameActive = false;
+  stopTimer();
+
+  document.getElementById('playerSetup').classList.add('hidden');
+  document.getElementById('gameScreen').classList.add('hidden');
+  document.getElementById('resultsScreen').classList.add('hidden');
+  document.getElementById('welcomeScreen').classList.remove('hidden');
+}
+
+function rematch() {
+  GameState.scores = GameState.scores.map(() => 0);
+  GameState.streaks = GameState.streaks.map(() => 0);
+  GameState.currentPlayer = 0;
+  GameState.currentRound = 1;
+  GameState.gameActive = true;
+  GameState.gamePaused = false;
+  GameState.usedQuestions.clear();
+  GameState.doublePoints = false;
+  GameState.timer = 30;
+
+  GameState.players.forEach((_, i) => GameState.powerUps[i] = { help: 2, time: 1, double: 1, skip: 1 });
+
+  const keepAchievements = GameState.stats.achievements;
+  GameState.stats = {
+    totalQuestions: GameState.questions.length,
+    correctAnswers: 0,
+    fastestAnswer: 999,
+    categories: {},
+    powerUpsUsed: 0,
+    hintsUsed: 0,
+    startTime: Date.now(),
+    achievements: keepAchievements
+  };
+
+  generateQuestions();
+
+  document.getElementById('resultsScreen').classList.add('hidden');
+  document.getElementById('gameScreen').classList.remove('hidden');
+
+  updateScoreboard();
+  updatePowerUps();
+
+  showNotification('🔄 REVANCHE! Nova partida começando...', 'success');
+  setTimeout(loadQuestion, 600);
+}
+
+function newGame() { backToMenu(); }
+
+function loadRecords() {
+  GameState.records = safeGetLocalStorage('familyShowRecords', []);
+}
+
+function showRecords() {
+  const hallOfFame = document.getElementById('hallOfFame');
+  const records = GameState.records || [];
+
+  if (records.length === 0) {
+    hallOfFame.innerHTML = '<p style="text-align:center; padding:40px; color: var(--warning);">Nenhum recorde ainda! Seja o primeiro!</p>';
+  } else {
+    hallOfFame.innerHTML = `
+      <div class="scores-list">
+        ${records.map((r, i) => {
+          const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`;
+          return `
+            <div class="score-item" style="margin-bottom:10px;">
+              <div class="score-player">${medal} ${r.player}
+                <small style="color:#94a3b8; font-size:0.9rem;">(${r.mode} - ${r.difficulty})</small>
+              </div>
+              <div class="score-points">${r.score} pts</div>
+              <div style="font-size:0.8rem; color:#64748b;">${r.date}</div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+  }
+
+  document.getElementById('recordsModal').style.display = 'flex';
+}
+
+function showQuickStats() {
+  const statsList = document.getElementById('statsList');
+  const quickStats = document.getElementById('quickStats');
+  const records = GameState.records || [];
+
+  if (records.length === 0) { quickStats.style.display = 'none'; return; }
+  quickStats.style.display = 'block';
+
+  const top3 = records.slice(0, 3);
+  statsList.innerHTML = top3.map((r, i) => {
+    const medal = ['🥇', '🥈', '🥉'][i];
+    return `
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:15px;margin:10px 0;background:rgba(30,41,59,0.7);border-radius:12px;">
+        <div><strong>${medal} ${r.player}</strong><br><small>${r.mode} • ${r.date}</small></div>
+        <div style="font-size:1.5rem;font-weight:bold;color:var(--warning);">${r.score}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function shareResults() {
+  const maxScore = Math.max(...GameState.scores);
+  const winner = GameState.players[GameState.scores.indexOf(maxScore)] || 'Todos';
+  const shareText = `🎮 SHOW DA FAMÍLIA! ${winner} venceu com ${maxScore} pontos! Modo: ${GameState.mode.toUpperCase()} • Dificuldade: ${GameState.difficulty.toUpperCase()} • ${window.location.href}`;
+
+  if (navigator.share) {
+    navigator.share({ title: 'Show da Família', text: shareText, url: window.location.href })
+      .catch(() => copyToClipboard(shareText));
+  } else {
+    copyToClipboard(shareText);
+  }
+}
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text)
+    .then(() => showNotification('📋 Copiado para a área de transferência!', 'success'))
+    .catch(() => showNotification('❌ Não foi possível copiar', 'error'));
+}
+
+function showInstructions() { document.getElementById('instructionsModal').style.display = 'flex'; }
+function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
+
+// ============================================
+// BOOT
+// ============================================
+document.addEventListener('DOMContentLoaded', () => {
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes notificationSlideIn {
+      from { transform: translateX(-50%) translateY(-100px); opacity: 0; }
+      to { transform: translateX(-50%) translateY(0); opacity: 1; }
+    }
+    @keyframes notificationSlideOut {
+      from { transform: translateX(-50%) translateY(0); opacity: 1; }
+      to { transform: translateX(-50%) translateY(-100px); opacity: 0; }
+    }
+  `;
+  document.head.appendChild(style);
+
+  window.addEventListener('click', (event) => {
+    if (event.target.classList.contains('modal-overlay')) event.target.style.display = 'none';
+  });
+
+  initGame();
+});
+</script>
+</body>
+</html>
